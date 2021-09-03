@@ -27,7 +27,8 @@ class Apple:
 class Snake:
     def __init__(self, parent_screen):
         self.parent_screen = parent_screen
-        self.image = pygame.image.load("resources/block.jpg").convert()
+        #self.image = pygame.image.load("resources/block.jpg").convert()
+        self.image = pygame.image.load("resources/snake1.png").convert()
         self.length = 1
         self.x = [40] * self.length
         self.y = [40] * self.length
@@ -39,7 +40,7 @@ class Snake:
         self.y.append(-1)
 
     def build(self):
-        self.parent_screen.fill(BACKGROUND_COLOR)
+
         for i in range(self.length):
             self.parent_screen.blit(self.image, (self.x[i], self.y[i]))
         pygame.display.flip()
@@ -109,7 +110,13 @@ class Game:
                 return True
         return False
 
+    def render_background(self):
+        bgpic = pygame.image.load("resources/bgpic.jpg")
+        self.surface.blit(bgpic, (0, 0))
+        pygame.display.flip()
+
     def play(self):
+        self.render_background()
         self.snake.walk()
         self.apple.draw()
         self.display_score()
@@ -133,14 +140,14 @@ class Game:
             raise "hits the boundary"
 
     def display_score(self):
-        font = pygame.font.SysFont('arial', 30)
+        font = pygame.font.SysFont('arial', 45)
         score = font.render(f"Score: {self.snake.length}", True, (255, 255, 255))
-        self.surface.blit(score, (850, 30))
+        self.surface.blit(score, (800, 30))
 
     def show_game_over(self):
         pygame.mixer.music.pause()
         pygame.mixer.Channel(0).pause()
-        self.surface.fill(black)
+        self.render_background()
         font = pygame.font.SysFont('arial', 30)
         score = font.render(f"Game is over! Your score is {self.snake.length-1}", True, (255, 255, 255))
         self.surface.blit(score, (330, 250))
@@ -187,8 +194,8 @@ class Game:
             time.sleep(.25)
 
     def startup(self):
-        self.surface.fill(black)
-        head = pygame.font.SysFont('arial', 60)
+        self.render_background()
+        head = pygame.font.SysFont('arial', 60, bold=True)
         welcome = head.render("Snake World", True, (255, 255, 255))
         self.surface.blit(welcome, (370, 400))
         font = pygame.font.SysFont('arial', 30)
