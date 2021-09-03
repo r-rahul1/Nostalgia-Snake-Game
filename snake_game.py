@@ -78,6 +78,8 @@ class Game:
         pygame.init()
         pygame.mixer.init()
         pygame.display.set_caption("Snake World")
+        icon = pygame.image.load('resources/icon.ico')
+        pygame.display.set_icon(icon)
         self.surface = pygame.display.set_mode((1000, 900))
         self.pause = False
         self.snake = Snake(self.surface)
