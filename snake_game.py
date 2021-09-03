@@ -4,8 +4,6 @@ import time
 import random
 
 size = 40
-BACKGROUND_COLOR = (0, 0, 0)
-black = (0, 0, 0)
 
 
 class Apple:
@@ -218,6 +216,7 @@ class Game:
 
 
 if __name__ == '__main__':
+    #rr
     game = Game()
     if game.startup():
         game.run()
