@@ -72,6 +72,7 @@ class Snake:
 
 class Game:
     def __init__(self):
+        self.speed = 0.25
         pygame.init()
         pygame.mixer.init()
         pygame.display.set_caption("Snake World")
@@ -92,7 +93,7 @@ class Game:
 
     def background_music(self):
         pygame.mixer.music.load("resources/background.mp3")
-        pygame.mixer.music.play()
+        pygame.mixer.music.play(loops=10)
 
     def effects(self, sound):
         effect = pygame.mixer.Sound(f"resources/{sound}.wav")
@@ -125,6 +126,8 @@ class Game:
         if self.is_collision(self.snake.x[0], self.snake.y[0], self.apple.x, self.apple.y):
             self.effects("point")
             self.snake.increase_length()
+            if self.speed >= 0.75:
+                self.speed -= 0.0125
             self.apple.move()
 
         # snake colliding with itself
@@ -190,7 +193,7 @@ class Game:
                 self.pause = True
                 self.reset()
 
-            time.sleep(.25)
+            time.sleep(self.speed)
 
     def startup(self):
         self.render_background()
